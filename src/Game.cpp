@@ -1,7 +1,4 @@
 #include "Game.h"
-#include "GLGraphics.h"
-#include <SDL2/SDL.h>
-#include <iostream>
 
 Game::Game() 
 {
@@ -21,21 +18,35 @@ void Game::runGame() {
         while(SDL_PollEvent(&event)) {
             this->captureInput(event);
         }
-
+        Game::updateGame();
     }
 }
 
 void Game::captureInput(SDL_Event& e) {
     switch(e.type) {
         case SDL_KEYDOWN:
-        case SDL_KEYUP:
-            //std::cout << "test" << std::endl;
             switch(e.key.keysym.scancode) {
                 case SDL_SCANCODE_ESCAPE:
                     this->quit();
                     break;
+                case SDL_SCANCODE_W:
+                    this->graphics->MoveSnake(UP);
+                    break;
+                case SDL_SCANCODE_S:
+                    this->graphics->MoveSnake(DOWN);
+                    break;
+                case SDL_SCANCODE_A:
+                    this->graphics->MoveSnake(LEFT);
+                    break;
+                case SDL_SCANCODE_D:
+                    this->graphics->MoveSnake(RIGHT);
+                    break;
             }
     }
+}
+
+void Game::updateGame() {
+    this->graphics->update();
 }
 
 void Game::setGraphics(GLGraphics* graphics) {
@@ -44,4 +55,5 @@ void Game::setGraphics(GLGraphics* graphics) {
 
 void Game::quit() {
     this->isPlaying = false;
+    //this->graphics->exit();
 }

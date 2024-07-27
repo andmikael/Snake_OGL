@@ -1,14 +1,7 @@
 #pragma once 
 
 #include "GLGraphics.h"
-
-enum class Key {
-    ESCAPE,
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-};
+#include <iostream>
 
 class Game {
     private:
